@@ -21,7 +21,7 @@ const usersData = [
 
 export default function NewReturningUsersCard({ darkMode }) {
   return (
-    <Card className="rounded-2xl shadow-md w-full card-bg">
+    <Card className="rounded-2xl shadow-md w-full">
       <CardHeader>
         <CardTitle className="text-lg font-semibold">New vs Returning Users</CardTitle>
         <p className="text-3xl font-bold">
