@@ -5,6 +5,8 @@ import UsersCard from "./components/UsersCard";
 import SessionsCard from "./components/SessionsCard";
 import SubscriptionsCard from "./components/SubscriptionsCard";
 import NewReturningUsersCard from "./components/NewReturningUsersCard";
+import TrafficByStateMap from "./components/TrafficByStateMap";
+import DeviceTypeDistributionCard from "./components/DeviceTypeDistributionCard";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -65,11 +67,18 @@ function App() {
 </div>
 
 {/* NewReturningUsersCard – ~55–60% width */}
-<div className="mt-6 flex justify-start">
-  <div className="w-6/12">
+<div className="mt-6 grid grid-cols-12 gap-6">
+  {/* Left card: ~50% width */}
+  <div className="col-span-8">
     <NewReturningUsersCard darkMode={darkMode} />
   </div>
+
+  {/* Right card: spans the rest of the row */}
+  <div className="col-span-4">
+    <DeviceTypeDistributionCard darkMode={darkMode} />
+  </div>
 </div>
+
 
         </main>
       </div>

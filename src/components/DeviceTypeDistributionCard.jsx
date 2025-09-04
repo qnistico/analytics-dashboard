@@ -1,40 +1,41 @@
-// src/components/SubscriptionsCard.jsx
+// src/components/DeviceTypeDistributionCard.jsx
 import { Card, CardContent, CardHeader, CardTitle } from "./Card";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
+// Sample data
 const data = [
-  { name: "Trial", value: 25 },
-  { name: "Standard", value: 55 },
-  { name: "Enterprise", value: 20 },
+  { name: "Desktop", value: 5000 },
+  { name: "Mobile", value: 3200 },
+  { name: "Tablet", value: 1200 },
+  { name: "Other", value: 600 },
 ];
 
-const COLORS = ["#FACC15", "#4F46E5", "#10B981"]; // Yellow, Blue, Green
+const COLORS = ["#4F46E5", "#10B981", "#F59E0B", "#EF4444"]; // Blue, Green, Yellow, Red
 
-export default function SubscriptionsCard() {
+export default function DeviceTypeDistributionCard() {
+  const totalUsers = data.reduce((sum, d) => sum + d.value, 0);
+
   return (
     <Card className="rounded-2xl shadow-md">
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">Subscriptions</CardTitle>
-        <p className="text-3xl font-bold">1,201</p>
+        <CardTitle className="text-lg font-semibold">Device Type Distribution</CardTitle>
+        <p className="text-3xl font-bold">{totalUsers.toLocaleString()}</p>
         <p className="text-sm text-muted-foreground subtext-color">
-          25% Trial · 55% Standard · 20% Enterprise
+          Total users across devices
         </p>
       </CardHeader>
       <CardContent>
-        <div className="h-40 flex items-center justify-between">
-          {/* Static stats on the left */}
-          <div className="flex flex-col justify-center space-y-2">
-            {data.map((entry, index) => (
-              <div key={index} className="flex items-center space-x-2">
-                <span
-                  className="w-3 h-3 rounded-full"
-                  style={{ backgroundColor: COLORS[index] }}
-                ></span>
-                <span className="text-sm font-medium text-muted-foreground">
-                  {entry.name}: {entry.value}%
-                </span>
-              </div>
-            ))}
+        <div className="flex gap-6 items-center h-40">
+          {/* Static Stats on the left */}
+          <div className="flex flex-col justify-between h-full">
+            {data.map((entry, index) => {
+              const percent = ((entry.value / totalUsers) * 100).toFixed(0);
+              return (
+                <p key={index} className="text-sm text-muted-foreground">
+                  {entry.name}: {percent}%
+                </p>
+              );
+            })}
           </div>
 
           {/* Pie chart on the right */}
@@ -45,7 +46,7 @@ export default function SubscriptionsCard() {
                   data={data}
                   innerRadius="50%"
                   outerRadius="80%"
-                  paddingAngle={5}
+                  paddingAngle={1}
                   dataKey="value"
                 >
                   {data.map((entry, index) => (

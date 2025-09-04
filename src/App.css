@@ -24,6 +24,10 @@
   background-color: var(--color-card-bg);
 }
 
+.chart-card {
+  height: 100%;
+}
+
 .chart-card tspan {
   font-size: 12.2px;
 }
