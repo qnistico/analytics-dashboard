@@ -4,6 +4,7 @@ import RevenueCard from "./components/RevenueCard";
 import UsersCard from "./components/UsersCard";
 import SessionsCard from "./components/SessionsCard";
 import SubscriptionsCard from "./components/SubscriptionsCard";
+import NewReturningUsersCard from "./components/NewReturningUsersCard";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -55,13 +56,21 @@ function App() {
           </div>
 
           {/* Cards */}
-          <div className="charts-grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <RevenueCard darkMode={darkMode} />
-            <UsersCard darkMode={darkMode} />
-            <SessionsCard darkMode={darkMode} />
-            <SubscriptionsCard darkMode={darkMode} />
-            
-          </div>
+          {/* Cards grid */}
+<div className="charts-grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+  <RevenueCard darkMode={darkMode} />
+  <UsersCard darkMode={darkMode} />
+  <SessionsCard darkMode={darkMode} />
+  <SubscriptionsCard darkMode={darkMode} />
+</div>
+
+{/* NewReturningUsersCard – ~55–60% width */}
+<div className="mt-6 flex justify-start">
+  <div className="w-7/12">
+    <NewReturningUsersCard darkMode={darkMode} />
+  </div>
+</div>
+
         </main>
       </div>
     </div>

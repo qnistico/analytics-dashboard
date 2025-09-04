@@ -20,3 +20,7 @@
 .subtext-color {
   color: var(--color-subtext);
 }
+
+.card-bg {
+  background-color: var(--color-card-bg);
+}
