@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.theme-dark tspan {
+  fill: #fff;
+}
+
+.theme-light tspan {
+  fill: #606060 !important;
+  font-size: 12.2px;
+}
+
+.theme-light .charts-grid-container div {
+  background-color: #fff;
+}
+
+.subtext-color {
+  color: var(--color-subtext);
+}
