@@ -5,11 +5,11 @@
 }
 
 .theme-dark tspan {
-  fill: #fff;
+  fill: #d1d1d1;
 }
 
 .theme-light tspan {
-  fill: #606060 !important;
+  fill: #606060 ;
   font-size: 12.2px;
 }
 

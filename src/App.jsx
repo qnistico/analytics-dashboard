@@ -66,7 +66,7 @@ function App() {
 
 {/* NewReturningUsersCard – ~55–60% width */}
 <div className="mt-6 flex justify-start">
-  <div className="w-7/12">
+  <div className="w-6/12">
     <NewReturningUsersCard darkMode={darkMode} />
   </div>
 </div>
