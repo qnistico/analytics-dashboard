@@ -45,7 +45,7 @@ export default function SubscriptionsCard() {
                   data={data}
                   innerRadius="50%"
                   outerRadius="80%"
-                  paddingAngle={5}
+                  paddingAngle={1}
                   dataKey="value"
                 >
                   {data.map((entry, index) => (
