@@ -10,7 +10,6 @@
 
 .theme-light tspan {
   fill: #606060 ;
-  font-size: 12.2px;
 }
 
 .theme-light .charts-grid-container div {
@@ -23,4 +22,8 @@
 
 .card-bg {
   background-color: var(--color-card-bg);
+}
+
+.chart-card tspan {
+  font-size: 12.2px;
 }
