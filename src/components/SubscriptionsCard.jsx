@@ -8,7 +8,7 @@ export default function SubscriptionsCard({ data }) {
   // data = { total: 1201, breakdown: [ { name: "Trial", value: 25 }, ... ] }
 
   return (
-    <Card className="rounded-2xl shadow-md">
+    <Card className="rounded-2xl shadow-md margin-unset">
       <CardHeader>
         <CardTitle className="text-lg font-semibold">Subscriptions</CardTitle>
         <p className="text-4xl font-bold">{data.total.toLocaleString()}</p>
@@ -44,7 +44,7 @@ export default function SubscriptionsCard({ data }) {
                   data={data.breakdown}
                   innerRadius="50%"
                   outerRadius="80%"
-                  paddingAngle={1}
+                  paddingAngle={3}
                   dataKey="value"
                   stroke="none"
                 >

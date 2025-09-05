@@ -23,7 +23,7 @@ export default function DeviceTypeDistributionCard({ darkMode, data, quickStats 
   const totalUsers = chartData.reduce((sum, d) => sum + d.value, 0);
 
   return (
-    <Card className="rounded-2xl shadow-md">
+    <Card className="rounded-2xl shadow-md margin-unset">
       <CardHeader>
         <CardTitle className="text-lg font-semibold">Device Type Distribution</CardTitle>
         <p className="text-4xl font-bold">{totalUsers.toLocaleString()}</p>
@@ -58,7 +58,7 @@ export default function DeviceTypeDistributionCard({ darkMode, data, quickStats 
                     data={chartData}
                     innerRadius="50%"
                     outerRadius="80%"
-                    paddingAngle={1}
+                    paddingAngle={3}
                     dataKey="value"
                     stroke="none"
                   >

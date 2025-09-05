@@ -38,7 +38,7 @@ export default function RevenueCard({ darkMode, data }) {
               <XAxis dataKey="month" stroke={darkMode ? "#eee" : "#333"} />
               <YAxis stroke={darkMode ? "#eee" : "#333"} />
               <Tooltip />
-              <Bar dataKey="revenue" fill="#3b82f6" />
+              <Bar dataKey="revenue" fill={darkMode ? "#1d9bf0" : "#1d9bf0"} radius={[100, 100, 0, 0]} barSize={12}  />
             </BarChart>
           </ResponsiveContainer>
         </div>

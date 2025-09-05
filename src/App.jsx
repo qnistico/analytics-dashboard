@@ -11,6 +11,7 @@ import DeviceTypeDistributionCard from "./components/DeviceTypeDistributionCard"
 import ActivityPanel from "./components/ActivityPanel";
 import CalendarCard from "./components/CalendarCard";
 
+
 // -----------------------------
 // Helpers
 // -----------------------------
@@ -67,7 +68,6 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [activeItem, setActiveItem] = useState("analytics");
   const [selectedDate, setSelectedDate] = useState(new Date());
-
   const todayKey = new Date().toISOString().split("T")[0];
 
   // Generate 30-day dashboard data
@@ -124,11 +124,14 @@ function App() {
       >
         {/* Sidebar */}
         <Sidebar
-          darkMode={darkMode}
-          setDarkMode={setDarkMode}
-          activeItem={activeItem}
-          setActiveItem={setActiveItem}
-        />
+  darkMode={darkMode}
+  setDarkMode={setDarkMode}
+  activeItem={activeItem}
+  setActiveItem={setActiveItem}
+  selectedDate={selectedDate}
+  setSelectedDate={setSelectedDate}
+/>
+
 
         {/* Main content */}
         <main className="flex-1 p-6 overflow-y-auto">
@@ -179,9 +182,7 @@ function App() {
             <div className="col-span-8">
               <ActivityPanel darkMode={darkMode} />
             </div>
-            <div className="col-span-4">
-              <CalendarCard onDateChange={setSelectedDate} darkMode={darkMode} />
-            </div>
+            
           </div>
         </main>
       </div>

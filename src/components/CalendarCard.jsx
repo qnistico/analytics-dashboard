@@ -13,7 +13,7 @@ function CalendarCard({ onDateChange }) {
 
   return (
     <div
-      className="rounded-2xl p-4 shadow"
+      className="rounded-2xl p-4 shadow height-100 column-flex "
       style={{ backgroundColor: "var(--color-card-bg)", color: "var(--color-header)" }}
     >
       <h2 className="text-lg font-semibold mb-4">Calendar</h2>
