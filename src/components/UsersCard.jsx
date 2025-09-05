@@ -42,6 +42,7 @@ export default function UsersCard({ darkMode, data }) {
                 dataKey="users"
                 stroke="#10b981"
                 strokeWidth={3}
+                activeDot={{ r: 6 }} // shows only a highlight dot on hover
               />
             </LineChart>
           </ResponsiveContainer>
