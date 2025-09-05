@@ -14,11 +14,11 @@ import CalendarCard from "./components/CalendarCard";
 // -----------------------------
 // Helpers
 // -----------------------------
-function generateRandomChartData(base, length = 5, variance = 0.2) {
+function generateRandomChartData(base, length = 5, variance = 0.2, key = "value") {
   const months = ["Jan", "Feb", "Mar", "Apr", "May"];
   return Array.from({ length }, (_, i) => ({
     month: months[i % months.length],
-    value: Math.round(base * (1 + (Math.random() - 0.5) * variance)),
+    [key]: Math.round(base * (1 + (Math.random() - 0.5) * variance)),
   }));
 }
 
@@ -40,7 +40,7 @@ function generateRandomDeviceTypes() {
 }
 
 function generateRandomNewReturningUsers() {
-  const months = ["Jan","Feb","Mar","Apr","May"];
+  const months = ["Jan", "Feb", "Mar", "Apr", "May"];
   return months.map((m) => ({
     month: m,
     newUsers: Math.floor(Math.random() * 500) + 200,
@@ -52,9 +52,9 @@ function generateRandomNewReturningUsers() {
 // Fixed default data for "today"
 // -----------------------------
 const defaultTodayData = {
-  revenue: { total: 12345, chartData: generateRandomChartData(5000) },
-  users: { total: 1234, chartData: generateRandomChartData(1000) },
-  sessions: { total: 20567, chartData: generateRandomChartData(15000) },
+  revenue: { total: 12345, chartData: generateRandomChartData(5000, 5, 0.2, "revenue") },
+  users: { total: 1234, chartData: generateRandomChartData(1000, 5, 0.2, "users") },
+  sessions: { total: 20567, chartData: generateRandomChartData(15000, 5, 0.2, "sessions") },
   subscriptions: { total: 1201, breakdown: generateRandomSubscriptions() },
   deviceTypes: generateRandomDeviceTypes(),
   newReturningUsers: generateRandomNewReturningUsers(),
@@ -79,10 +79,22 @@ function App() {
         data[dateKey] = defaultTodayData; // fixed values for today
       } else {
         data[dateKey] = {
-          revenue: { total: Math.floor(Math.random() * 10000) + 5000, chartData: generateRandomChartData(5000) },
-          users: { total: Math.floor(Math.random() * 2000) + 500, chartData: generateRandomChartData(1000) },
-          sessions: { total: Math.floor(Math.random() * 25000) + 5000, chartData: generateRandomChartData(15000) },
-          subscriptions: { total: Math.floor(Math.random() * 2000) + 500, breakdown: generateRandomSubscriptions() },
+          revenue: {
+            total: Math.floor(Math.random() * 10000) + 5000,
+            chartData: generateRandomChartData(5000, 5, 0.2, "revenue"),
+          },
+          users: {
+            total: Math.floor(Math.random() * 2000) + 500,
+            chartData: generateRandomChartData(1000, 5, 0.2, "users"),
+          },
+          sessions: {
+            total: Math.floor(Math.random() * 25000) + 5000,
+            chartData: generateRandomChartData(15000, 5, 0.2, "sessions"),
+          },
+          subscriptions: {
+            total: Math.floor(Math.random() * 2000) + 500,
+            breakdown: generateRandomSubscriptions(),
+          },
           deviceTypes: generateRandomDeviceTypes(),
           newReturningUsers: generateRandomNewReturningUsers(),
         };
