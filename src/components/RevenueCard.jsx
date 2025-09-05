@@ -1,4 +1,3 @@
-// src/components/RevenueCard.jsx
 import { Card, CardHeader, CardTitle, CardContent } from "./Card";
 import {
   BarChart,
@@ -10,28 +9,28 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const revenueData = [
-  { month: "Jan", revenue: 4000 },
-  { month: "Feb", revenue: 3000 },
-  { month: "Mar", revenue: 5000 },
-  { month: "Apr", revenue: 4000 },
-  { month: "May", revenue: 6000 },
-];
+export default function RevenueCard({ darkMode, data }) {
+  // fallback if data not provided
+  const chartData = data?.chartData || [
+    { month: "Jan", revenue: 4000 },
+    { month: "Feb", revenue: 3000 },
+    { month: "Mar", revenue: 5000 },
+    { month: "Apr", revenue: 4000 },
+    { month: "May", revenue: 6000 },
+  ];
+  const totalRevenue = data?.total || 12345;
 
-export default function RevenueCard({ darkMode }) {
   return (
     <Card className="rounded-2xl shadow-md">
       <CardHeader>
         <CardTitle className="text-lg font-semibold">Revenue</CardTitle>
-        <p className="text-4xl font-bold">$12,345</p>
-        <p className="text-sm text-muted-foreground subtext-color">
-          Last 30 days
-        </p>
+        <p className="text-4xl font-bold">${totalRevenue.toLocaleString()}</p>
+        <p className="text-sm text-muted-foreground subtext-color">Last 30 days</p>
       </CardHeader>
       <CardContent>
         <div className="h-40">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={revenueData}>
+            <BarChart data={chartData}>
               <CartesianGrid
                 strokeDasharray="3 3"
                 stroke={darkMode ? "#444" : "#ccc"}

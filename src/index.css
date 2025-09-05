@@ -5,6 +5,7 @@
   --color-header: #111111;     /* header text */
   --color-subtext: #606060;    /* secondary text */
   --color-primary: #3b82f6;    /* main accent color (blue) */
+  --border-color: #e5e7eb;
 }
 
 .theme-dark {
@@ -13,6 +14,7 @@
   --color-header: #f5f8fa;     /* main text */
   --color-subtext: #e5e5e5;    /* secondary text */
   --color-primary: #1d9bf0;    /* accent blue for charts/buttons */
+  --border-color: #374151;
 }
 
 

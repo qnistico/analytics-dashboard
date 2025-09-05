@@ -1,4 +1,3 @@
-// src/components/SessionsCard.jsx
 import { Card, CardHeader, CardTitle, CardContent } from "./Card";
 import {
   AreaChart,
@@ -10,28 +9,27 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const sessionsData = [
-  { month: "Jan", sessions: 800 },
-  { month: "Feb", sessions: 1200 },
-  { month: "Mar", sessions: 1000 },
-  { month: "Apr", sessions: 1400 },
-  { month: "May", sessions: 1600 },
-];
+export default function SessionsCard({ darkMode, data }) {
+  const chartData = data?.chartData || [
+    { month: "Jan", sessions: 800 },
+    { month: "Feb", sessions: 1200 },
+    { month: "Mar", sessions: 1000 },
+    { month: "Apr", sessions: 1400 },
+    { month: "May", sessions: 1600 },
+  ];
+  const totalSessions = data?.total || 20567;
 
-export default function SessionsCard({ darkMode }) {
   return (
     <Card className="rounded-2xl shadow-md">
       <CardHeader>
         <CardTitle className="text-lg font-semibold">Sessions</CardTitle>
-        <p className="text-4xl font-bold">20,567</p>
-        <p className="text-sm text-muted-foreground subtext-color">
-          Visits this week
-        </p>
+        <p className="text-4xl font-bold">{totalSessions.toLocaleString()}</p>
+        <p className="text-sm text-muted-foreground subtext-color">Visits this week</p>
       </CardHeader>
       <CardContent>
         <div className="h-40">
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={sessionsData}>
+            <AreaChart data={chartData}>
               <CartesianGrid
                 strokeDasharray="3 3"
                 stroke={darkMode ? "#444" : "#ccc"}

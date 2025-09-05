@@ -20,9 +20,39 @@
   color: var(--color-subtext);
 }
 
+hr {
+  margin-bottom: 10px;
+}
+
+.border-standard {
+  border: 1px solid transparent;
+}
+
+.border-color {
+  border-color: var(--border-color);
+}
+
 .card-bg {
   background-color: var(--color-card-bg);
 }
+
+.pb-0 {
+  padding-bottom: 0 !important;
+}
+
+.mt-3 {
+  margin-top: 3px !important;
+}
+
+.w-fitcontent {
+  width: fit-content;
+}
+
+.jcsb {
+  justify-content: space-between;
+}
+
+/* chart cards */
 
 .chart-card {
   height: 100%;
@@ -30,4 +60,115 @@
 
 .chart-card tspan {
   font-size: 12.2px;
+}
+
+.chart-card .text-4xl {
+  padding: 3px 0 5px 0;
+}
+
+/* activity panel */
+
+.accordion-items {
+  width: 100%;
+  max-width: 80%;
+}
+
+.accordion-items img {
+  width: 40px;
+  height: 40px;
+}
+
+.sidebar-links span {
+  color: var(--color-header);
+}
+
+.sidebar-links .active span {
+  color: #111 !important;
+}
+
+/* calendar */
+
+.react-calendar {
+  width: 100% !important;
+}
+
+/* CalendarCard.css */
+
+/* Wrapper */
+.react-calendar {
+  width: 100%;
+  max-width: 100%;
+  background: var(--color-card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 0.75rem; /* matches cards rounded-2xl */
+  font-family: inherit;
+  line-height: 1.5;
+  padding: 0.5rem;
+  color: var(--color-header) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Navigation (month/year + arrows) */
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.react-calendar__navigation button {
+  background: none;
+  border: none;
+  color: var(--color-header) !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  transition: background 0.2s;
+}
+
+.react-calendar__navigation button:hover {
+  background: var(--border-color);
+}
+
+/* Weekdays header */
+.react-calendar__month-view__weekdays {
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-subtext) !important;
+  margin-bottom: 0.25rem;
+}
+
+/* Individual days */
+.react-calendar__tile {
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.25rem;
+  transition: all 0.2s;
+  color: var(--color-header) !important;
+}
+
+/* Hover */
+.react-calendar__tile:hover {
+  background: var(--border-color) !important;
+}
+
+/* Today */
+.react-calendar__tile--now {
+  border: 1px solid var(--color-primary) !important;
+  color: var(--color-primary) !important;
+  background-color: var(--color-card-bg) !important;
+  font-weight: 600;
+}
+
+/* Selected day */
+.react-calendar__tile--active {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  font-weight: 600;
+}
+
+/* Inactive/other months */
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: var(--color-subtext) !important;
 }

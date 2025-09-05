@@ -1,85 +1,176 @@
-import { useState, useEffect } from "react";
-import { Sun, Moon, Home, BarChart2, Settings } from "lucide-react";
+// src/App.jsx
+import { useState, useEffect, useMemo } from "react";
+import { Sun, Moon } from "lucide-react";
+import Sidebar from "./components/Sidebar";
 import RevenueCard from "./components/RevenueCard";
 import UsersCard from "./components/UsersCard";
 import SessionsCard from "./components/SessionsCard";
 import SubscriptionsCard from "./components/SubscriptionsCard";
 import NewReturningUsersCard from "./components/NewReturningUsersCard";
-import TrafficByStateMap from "./components/TrafficByStateMap";
 import DeviceTypeDistributionCard from "./components/DeviceTypeDistributionCard";
+import ActivityPanel from "./components/ActivityPanel";
+import CalendarCard from "./components/CalendarCard";
 
+// -----------------------------
+// Helpers
+// -----------------------------
+function generateRandomChartData(base, length = 5, variance = 0.2) {
+  const months = ["Jan", "Feb", "Mar", "Apr", "May"];
+  return Array.from({ length }, (_, i) => ({
+    month: months[i % months.length],
+    value: Math.round(base * (1 + (Math.random() - 0.5) * variance)),
+  }));
+}
+
+function generateRandomSubscriptions() {
+  return [
+    { name: "Trial", value: Math.floor(Math.random() * 40) + 10 },
+    { name: "Standard", value: Math.floor(Math.random() * 50) + 30 },
+    { name: "Enterprise", value: Math.floor(Math.random() * 30) + 10 },
+  ];
+}
+
+function generateRandomDeviceTypes() {
+  return [
+    { name: "Desktop", value: Math.floor(Math.random() * 5000) + 2000 },
+    { name: "Mobile", value: Math.floor(Math.random() * 4000) + 1500 },
+    { name: "Tablet", value: Math.floor(Math.random() * 2000) + 500 },
+    { name: "Other", value: Math.floor(Math.random() * 1000) + 200 },
+  ];
+}
+
+function generateRandomNewReturningUsers() {
+  const months = ["Jan","Feb","Mar","Apr","May"];
+  return months.map((m) => ({
+    month: m,
+    newUsers: Math.floor(Math.random() * 500) + 200,
+    returningUsers: Math.floor(Math.random() * 400) + 100,
+  }));
+}
+
+// -----------------------------
+// Fixed default data for "today"
+// -----------------------------
+const defaultTodayData = {
+  revenue: { total: 12345, chartData: generateRandomChartData(5000) },
+  users: { total: 1234, chartData: generateRandomChartData(1000) },
+  sessions: { total: 20567, chartData: generateRandomChartData(15000) },
+  subscriptions: { total: 1201, breakdown: generateRandomSubscriptions() },
+  deviceTypes: generateRandomDeviceTypes(),
+  newReturningUsers: generateRandomNewReturningUsers(),
+};
+
+// -----------------------------
+// App Component
+// -----------------------------
 function App() {
   const [darkMode, setDarkMode] = useState(false);
+  const [activeItem, setActiveItem] = useState("analytics");
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
-  useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add("theme-dark");
-      document.body.classList.remove("theme-light");
-    } else {
-      document.body.classList.add("theme-light");
-      document.body.classList.remove("theme-dark");
+  const todayKey = new Date().toISOString().split("T")[0];
+
+  // Generate 30-day dashboard data
+  const dashboardDataByDate = useMemo(() => {
+    const data = {};
+    for (let d = 1; d <= 30; d++) {
+      const dateKey = `2025-09-${String(d).padStart(2, "0")}`;
+      if (dateKey === todayKey) {
+        data[dateKey] = defaultTodayData; // fixed values for today
+      } else {
+        data[dateKey] = {
+          revenue: { total: Math.floor(Math.random() * 10000) + 5000, chartData: generateRandomChartData(5000) },
+          users: { total: Math.floor(Math.random() * 2000) + 500, chartData: generateRandomChartData(1000) },
+          sessions: { total: Math.floor(Math.random() * 25000) + 5000, chartData: generateRandomChartData(15000) },
+          subscriptions: { total: Math.floor(Math.random() * 2000) + 500, breakdown: generateRandomSubscriptions() },
+          deviceTypes: generateRandomDeviceTypes(),
+          newReturningUsers: generateRandomNewReturningUsers(),
+        };
+      }
     }
+    return data;
+  }, [todayKey]);
+
+  // Update body theme
+  useEffect(() => {
+    document.body.classList.toggle("theme-dark", darkMode);
+    document.body.classList.toggle("theme-light", !darkMode);
   }, [darkMode]);
+
+  // Current selected data
+  const selectedKey = selectedDate.toISOString().split("T")[0];
+  const selectedData =
+    selectedKey > todayKey
+      ? dashboardDataByDate[todayKey] // future dates show today's data
+      : dashboardDataByDate[selectedKey] || dashboardDataByDate[todayKey];
 
   return (
     <div className="font-sans">
-      <div className="flex h-screen" style={{ backgroundColor: "var(--color-bg)", color: "var(--color-header)" }}>
+      <div
+        className="flex h-screen"
+        style={{ backgroundColor: "var(--color-bg)", color: "var(--color-header)" }}
+      >
         {/* Sidebar */}
-        <aside className="w-64 flex flex-col p-4" style={{ backgroundColor: "var(--color-card-bg)" }}>
-          <h2 className="text-xl font-bold mb-6">Dashboard</h2>
-          <nav className="flex flex-col gap-4">
-            <a href="#" className="flex items-center gap-2 hover:text-blue-500" style={{ color: "var(--color-subtext)" }}>
-              <Home size={20} /> Home
-            </a>
-            <a href="#" className="flex items-center gap-2 hover:text-blue-500" style={{ color: "var(--color-subtext)" }}>
-              <BarChart2 size={20} /> Analytics
-            </a>
-            <a href="#" className="flex items-center gap-2 hover:text-blue-500" style={{ color: "var(--color-subtext)" }}>
-              <Settings size={20} /> Settings
-            </a>
-          </nav>
-          <button
-            className="mt-auto py-2 px-4 rounded flex items-center gap-2 justify-center"
-            style={{ backgroundColor: "var(--color-primary)", color: "#fff" }}
-            onClick={() => setDarkMode(!darkMode)}
-          >
-            {darkMode ? <Sun size={16} /> : <Moon size={16} />} Toggle Theme
-          </button>
-        </aside>
+        <Sidebar
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+          activeItem={activeItem}
+          setActiveItem={setActiveItem}
+        />
 
         {/* Main content */}
         <main className="flex-1 p-6 overflow-y-auto">
+          {/* Header */}
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-bold">Analytics Dashboard</h1>
             <div className="flex items-center gap-4">
+              {/* Dark mode toggle */}
+              <div
+                onClick={() => setDarkMode(!darkMode)}
+                className="relative w-14 h-7 flex items-center bg-gray-300 dark:bg-gray-600 rounded-full p-1 cursor-pointer transition-colors"
+              >
+                <div
+                  className={`absolute w-5 h-5 bg-white rounded-full shadow-md transform transition-transform ${
+                    darkMode ? "translate-x-7" : "translate-x-0"
+                  }`}
+                ></div>
+                <Sun className="absolute left-1 text-yellow-400" size={14} />
+                <Moon className="absolute right-1 text-gray-700 dark:text-yellow-300" size={14} />
+              </div>
+
+              {/* Search & Profile */}
               <div className="px-3 py-1 rounded" style={{ backgroundColor: "var(--color-card-bg)", color: "var(--color-subtext)" }}>Search</div>
               <div className="px-3 py-1 rounded" style={{ backgroundColor: "var(--color-card-bg)", color: "var(--color-subtext)" }}>Profile</div>
             </div>
           </div>
 
           {/* Cards */}
-          {/* Cards grid */}
-<div className="charts-grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-  <RevenueCard darkMode={darkMode} />
-  <UsersCard darkMode={darkMode} />
-  <SessionsCard darkMode={darkMode} />
-  <SubscriptionsCard darkMode={darkMode} />
-</div>
+          <div className="charts-grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <RevenueCard data={selectedData.revenue} darkMode={darkMode} />
+            <UsersCard data={selectedData.users} darkMode={darkMode} />
+            <SessionsCard data={selectedData.sessions} darkMode={darkMode} />
+            <SubscriptionsCard data={selectedData.subscriptions} darkMode={darkMode} />
+          </div>
 
-{/* NewReturningUsersCard – ~55–60% width */}
-<div className="mt-6 grid grid-cols-12 gap-6">
-  {/* Left card: ~50% width */}
-  <div className="col-span-8">
-    <NewReturningUsersCard darkMode={darkMode} />
-  </div>
+          {/* NewReturningUsersCard & DeviceTypeDistributionCard */}
+          <div className="mt-6 grid grid-cols-12 gap-6">
+            <div className="col-span-8">
+              <NewReturningUsersCard data={selectedData.newReturningUsers} darkMode={darkMode} />
+            </div>
+            <div className="col-span-4">
+              <DeviceTypeDistributionCard data={selectedData.deviceTypes} darkMode={darkMode} />
+            </div>
+          </div>
 
-  {/* Right card: spans the rest of the row */}
-  <div className="col-span-4">
-    <DeviceTypeDistributionCard darkMode={darkMode} />
-  </div>
-</div>
-
-
+          {/* Activity Panel & Calendar */}
+          <div className="mt-6 grid grid-cols-12 gap-6">
+            <div className="col-span-8">
+              <ActivityPanel darkMode={darkMode} />
+            </div>
+            <div className="col-span-4">
+              <CalendarCard onDateChange={setSelectedDate} darkMode={darkMode} />
+            </div>
+          </div>
         </main>
       </div>
     </div>
