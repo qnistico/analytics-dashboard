@@ -2,8 +2,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "./Card";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
-const COLORS = ["#FACC15", "#4F46E5", "#10B981"]; // Yellow, Blue, Green
-
+const COLORS = ["#8B5CF6", "#1d9bf0", "#10B981"]; // Yellow, Blue, Green
+ 
 export default function SubscriptionsCard({ data }) {
   // data = { total: 1201, breakdown: [ { name: "Trial", value: 25 }, ... ] }
 

@@ -1,5 +1,15 @@
+// src/components/NewReturningUsersCard.jsx
 import { Card, CardContent, CardHeader, CardTitle } from "./Card";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  ResponsiveContainer,
+  ComposedChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Line,
+  Area,
+} from "recharts";
 
 // Default static data
 const defaultUsersData = [
@@ -26,14 +36,63 @@ export default function NewReturningUsersCard({ darkMode, data }) {
       <CardContent>
         <div className="h-72">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={chartData} margin={{ top: 10, right: 30, left: 20, bottom: 5 }}>
+            <ComposedChart
+              data={chartData}
+              margin={{ top: 10, right: 30, left: 20, bottom: 5 }}
+            >
+              <defs>
+                <linearGradient id="colorNewUsers" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#1d9bf0" stopOpacity={0.4} />
+                  <stop offset="95%" stopColor="#1d9bf0" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="colorReturningUsers" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#999" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#999" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+
               <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? "#444" : "#ccc"} />
               <XAxis dataKey="month" stroke={darkMode ? "#eee" : "#333"} />
               <YAxis stroke={darkMode ? "#eee" : "#333"} />
               <Tooltip />
-              <Line type="monotone" dataKey="newUsers" stroke="#4F46E5" strokeWidth={3} dot={{ r: 4 }} />
-              <Line type="monotone" dataKey="returningUsers" stroke="#999" strokeWidth={2} dot={{ r: 3 }} />
-            </LineChart>
+
+              {/* Filled areas */}
+              <Area
+  type="monotone"
+  dataKey="newUsers"
+  stroke="none"
+  fill="url(#colorNewUsers)"
+  name=""
+  tooltipType="none"
+/>
+<Area
+  type="monotone"
+  dataKey="returningUsers"
+  stroke="none"
+  fill="url(#colorReturningUsers)"
+  name=""
+  tooltipType="none"
+/>
+
+{/* Lines (the only ones that appear in tooltip) */}
+<Line
+  type="monotone"
+  dataKey="newUsers"
+  stroke="#1d9bf0"
+  strokeWidth={3}
+  dot={{ r: 4 }}
+  name="New Users"
+/>
+<Line
+  type="monotone"
+  dataKey="returningUsers"
+  stroke="#64748B"
+  strokeWidth={2}
+  dot={{ r: 4 }}
+  name="Returning Users"
+/>
+
+  </ComposedChart>
           </ResponsiveContainer>
         </div>
       </CardContent>

@@ -4,7 +4,7 @@
   --color-card-bg: #ffffff;    /* card backgrounds */
   --color-header: #111111;     /* header text */
   --color-subtext: #606060;    /* secondary text */
-  --color-primary: #3b82f6;    /* main accent color (blue) */
+  --color-primary: #1d9bf0;    /* main accent color (blue) */
   --border-color: #e5e7eb;
 }
 
@@ -12,7 +12,7 @@
   --color-bg: #15202b;         /* dark page bg, like Twitter dim */
   --color-card-bg: #1f2937;    /* card bg */
   --color-header: #f5f8fa;     /* main text */
-  --color-subtext: #e5e5e5;    /* secondary text */
+  --color-subtext: #cbd5e1;    /* secondary text cbd5e1*/
   --color-primary: #1d9bf0;    /* accent blue for charts/buttons */
   --border-color: #374151;
 }

@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "./Card";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
-const COLORS = ["#4F46E5", "#10B981", "#F59E0B", "#EF4444"]; // Blue, Green, Yellow, Red
+const COLORS = ["#1d9bf0", "#10B981", "#8B5CF6", "#F59E0B"]; // Blue, Green, Yellow, Red
 
 // Default static data
 const defaultData = [

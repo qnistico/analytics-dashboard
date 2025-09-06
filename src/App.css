@@ -4,6 +4,7 @@
   padding: 0;
 }
 
+
 .theme-dark tspan {
   fill: #d1d1d1;
 }
@@ -79,7 +80,7 @@ hr {
   padding: 3px 0 5px 0;
 }
 
-.chart-card:not(.margin-unset) svg {
+.chart-card:not(.margin-unset, .quickstats-card) svg {
   margin-left: -20px;
   margin-top: 30px;
 }
@@ -195,4 +196,37 @@ hr {
 .react-calendar__month-view__days__day--neighboringMonth {
   color: var(--color-subtext) !important;
 }
+
+.toggle-circle {
+  z-index: 2;
+}
+
+.colored-icon-container {
+  padding: 5px;
+}
+
+/*
+
+.theme-dark::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top left, rgba(29,155,240,0.2), transparent 60%),
+              radial-gradient(circle at bottom right, rgba(139,92,246,0.2), transparent 60%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.chart-card {
+  background-color: rgba(31, 41, 55, 0.7);
+  backdrop-filter: blur(10px);
+  position: relative; 
+  z-index: 10;
+}
+
+*/
+
 

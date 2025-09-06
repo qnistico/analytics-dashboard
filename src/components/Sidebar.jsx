@@ -13,7 +13,23 @@ export default function Sidebar({ darkMode, setDarkMode, activeItem, setActiveIt
 
   return (
     <aside className="w-300 flex flex-col p-4" style={{ backgroundColor: "var(--color-card-bg)" }}>
-      <h2 className="text-xl font-bold mb-6">Dashboard</h2>
+        <div className="flex jcsb">
+                  <h2 className="text-xl font-bold mb-6">Dashboard</h2>
+
+            {/* Dark mode toggle */}
+              <div
+                onClick={() => setDarkMode(!darkMode)}
+                className="relative w-14 h-7 flex items-center bg-gray-300 dark:bg-gray-600 rounded-full p-1 cursor-pointer transition-colors"
+              >
+                <div
+                  className={`absolute w-5 h-5 bg-white rounded-full shadow-md transform transition-transform toggle-circle ${
+                    darkMode ? "translate-x-7" : "translate-x-0"
+                  }`}
+                ></div>
+                <Sun className="absolute left-1 text-yellow-400" size={14} />
+                <Moon className="absolute right-1 text-gray-700 dark:text-yellow-300" size={14} />
+              </div>
+        </div>
 
       <nav className="flex flex-col gap-3 sidebar-links flex-1">
         {menuItems.map((item) => (

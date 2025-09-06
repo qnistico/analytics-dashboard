@@ -31,6 +31,7 @@ export default function SessionsCard({ darkMode, data }) {
                 dataKey="sessions"
                 stroke={darkMode ? "#10b981" : "#1d9bf0"} // green for dark, blue for light
                 strokeWidth={3}
+                name="Sessions"
                 dot={{ r: 4 }}
                 activeDot={{ r: 6 }}
               />

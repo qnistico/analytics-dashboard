@@ -39,6 +39,7 @@ export default function UsersCard({ darkMode, data }) {
               <Tooltip />
               <Line
                 type="monotone"
+                name="Users"
                 dataKey="users"
                 stroke="#10b981"
                 strokeWidth={3}
