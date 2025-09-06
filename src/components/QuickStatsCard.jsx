@@ -76,7 +76,7 @@ export default function QuickStatsCard({ darkMode, data }) {
           {stats.map((stat, i) => (
             <div key={i} className="flex items-center justify-between">
               {/* Left: icon + label + value */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-start gap-3">
                 <div
                   className="p-2 rounded-full colored-icon-container"
                   style={{
