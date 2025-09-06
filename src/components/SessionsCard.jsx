@@ -1,5 +1,14 @@
+// src/components/SessionsCard.jsx
 import { Card, CardHeader, CardTitle, CardContent } from "./Card";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 export default function SessionsCard({ darkMode, data }) {
   const chartData = data?.chartData || [
@@ -11,31 +20,60 @@ export default function SessionsCard({ darkMode, data }) {
   ];
   const totalSessions = data?.total || 20567;
 
+  // Consistent stroke color (blue brand)
+  const strokeColor = "#1d9bf0";
+
   return (
     <Card className="rounded-2xl shadow-md">
       <CardHeader>
         <CardTitle className="text-lg font-semibold">Sessions</CardTitle>
         <p className="text-4xl font-bold">{totalSessions.toLocaleString()}</p>
-        <p className="text-sm text-muted-foreground subtext-color">Visits this month</p>
+        <p className="text-sm text-muted-foreground subtext-color">
+          Visits this month
+        </p>
       </CardHeader>
       <CardContent>
         <div className="h-40">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? "#444" : "#ccc"} />
+            <AreaChart data={chartData}>
+              <defs>
+                <linearGradient id="sessionsGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={strokeColor} stopOpacity={0.4} />
+                  <stop offset="95%" stopColor={strokeColor} stopOpacity={0} />
+                </linearGradient>
+              </defs>
+
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke={darkMode ? "#444" : "#ccc"}
+              />
               <XAxis dataKey="month" stroke={darkMode ? "#eee" : "#333"} />
               <YAxis stroke={darkMode ? "#eee" : "#333"} />
               <Tooltip />
-              <Line
+
+              <Area
                 type="monotone"
                 dataKey="sessions"
-                stroke={darkMode ? "#10b981" : "#1d9bf0"} // green for dark, blue for light
-                strokeWidth={3}
+                stroke={strokeColor}
+                strokeWidth={1.618}
+                fill="url(#sessionsGradient)"
                 name="Sessions"
-                dot={{ r: 4 }}
-                activeDot={{ r: 6 }}
+                dot={{
+                  r: 4,
+                  fill: "#fff",
+                  fillOpacity: 1, // ✅ solid white center
+                  stroke: strokeColor,
+                  strokeWidth: 1.618,
+                }}
+                activeDot={{
+                  r: 6,
+                  fill: "#fff",
+                  fillOpacity: 1, // ✅ solid white center on hover too
+                  stroke: strokeColor,
+                  strokeWidth: 1.618,
+                }}
               />
-            </LineChart>
+            </AreaChart>
           </ResponsiveContainer>
         </div>
       </CardContent>

@@ -1,7 +1,8 @@
+// src/components/UsersCard.jsx
 import { Card, CardContent, CardHeader, CardTitle } from "./Card";
 import {
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -10,13 +11,18 @@ import {
 } from "recharts";
 
 export default function UsersCard({ darkMode, data }) {
-  const chartData = data?.chartData || [
+  // Add a "background" value for each bar
+  const chartData = (data?.chartData || [
     { month: "Jan", users: 200 },
     { month: "Feb", users: 450 },
     { month: "Mar", users: 300 },
     { month: "Apr", users: 500 },
     { month: "May", users: 600 },
-  ];
+  ]).map(d => ({
+    ...d,
+    usersBg: d.users * 0.75, // background bar at 75% height (adjust as needed)
+  }));
+
   const totalUsers = data?.total || 1234;
 
   return (
@@ -29,23 +35,45 @@ export default function UsersCard({ darkMode, data }) {
       <CardContent>
         <div className="h-40">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={chartData}>
+            <BarChart data={chartData} barCategoryGap={20}>
               <CartesianGrid
                 strokeDasharray="3 3"
                 stroke={darkMode ? "#444" : "#ccc"}
               />
               <XAxis dataKey="month" stroke={darkMode ? "#eee" : "#333"} />
               <YAxis stroke={darkMode ? "#eee" : "#333"} />
-              <Tooltip />
-              <Line
-                type="monotone"
-                name="Users"
-                dataKey="users"
-                stroke="#10b981"
-                strokeWidth={3}
-                activeDot={{ r: 6 }} // shows only a highlight dot on hover
+<Tooltip
+  contentStyle={{
+    padding: "4px 8px", // tighter padding
+    margin: 0,
+    border: "none",
+    backgroundColor: darkMode ? "#15202b" : "#fff",
+    boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+  }}
+  itemStyle={{
+    padding: "0px 2px", // reduces spacing between items
+  }}
+/>
+
+              {/* Background bar */}
+              <Bar
+                dataKey="usersBg"
+                name=""
+                fill="rgba(139, 92, 246, 0.3)"
+                barSize={9}
+                radius={[6, 6, 0, 0]}
+                  tooltipType="none"
               />
-            </LineChart>
+
+              {/* Foreground/main bar */}
+              <Bar
+                dataKey="users"
+                name="Users"
+                fill="#8B5CF6"
+                barSize={9}
+                radius={[6, 6, 0, 0]}
+              />
+            </BarChart>
           </ResponsiveContainer>
         </div>
       </CardContent>
