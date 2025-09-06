@@ -208,9 +208,9 @@ function App() {
         {/* Top Cards */}
         <div className="charts-grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <RevenueCard data={selectedData.revenue} darkMode={darkMode} />
+                    <SubscriptionsCard data={selectedData.subscriptions} darkMode={darkMode} />
           <UsersCard data={selectedData.users} darkMode={darkMode} />
           <SessionsCard data={selectedData.sessions} darkMode={darkMode} />
-          <SubscriptionsCard data={selectedData.subscriptions} darkMode={darkMode} />
         </div>
 
         {/* Mid Panels */}
