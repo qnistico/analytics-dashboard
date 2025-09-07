@@ -13,6 +13,7 @@ import CalendarCard from "./components/CalendarCard";
 import QuickStatsCard from "./components/QuickStatsCard";
 import { motion, AnimatePresence } from "framer-motion";
 import MessagesPanel from "./components/MessagesPanel";
+import ProductsPanel from "./components/ProductsPanel";
 
 
 
@@ -245,6 +246,22 @@ function App() {
           </div>
           
         </div>
+      </motion.div>
+    )}
+
+    {activeItem === "products" && (
+      <motion.div
+        key="products"
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -50 }}
+        transition={{ duration: 0.3 }}
+      >
+        {/* Messages panel */}
+        <h2 className="text-2xl font-bold mb-4">Messages</h2>
+            <ProductsPanel darkMode={darkMode} />
+
+        
       </motion.div>
     )}
 
