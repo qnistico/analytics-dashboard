@@ -202,15 +202,15 @@ hr {
 }
 
 .colored-icon-container {
-  padding: 0;
-  margin-top: 5px;
-  width: 12px;
-  height: 12px;
+  padding: 5px;
+  
 }
 
-.colored-icon-container svg {
-  display: none;
+.theme-dark .theme-switch {
+  background-color: #4b5563 !important;
 }
+
+
 
 /*
 

@@ -19,7 +19,7 @@ export default function Sidebar({ darkMode, setDarkMode, activeItem, setActiveIt
             {/* Dark mode toggle */}
               <div
                 onClick={() => setDarkMode(!darkMode)}
-                className="relative w-14 h-7 flex items-center bg-gray-300 dark:bg-gray-600 rounded-full p-1 cursor-pointer transition-colors"
+                className="relative w-14 h-7 flex items-center bg-gray-300 dark:bg-gray-600 rounded-full p-1 cursor-pointer transition-colors theme-switch"
               >
                 <div
                   className={`absolute w-5 h-5 bg-white rounded-full shadow-md transform transition-transform toggle-circle ${
