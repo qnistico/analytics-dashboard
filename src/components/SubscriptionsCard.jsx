@@ -4,7 +4,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 const COLORS = ["#8B5CF6", "#1d9bf0", "#10B981"]; // Yellow, Blue, Green
  
-export default function SubscriptionsCard({ data }) {
+export default function SubscriptionsCard({ data, darkMode }) {
   // data = { total: 1201, breakdown: [ { name: "Trial", value: 25 }, ... ] }
 
   return (
@@ -55,8 +55,20 @@ export default function SubscriptionsCard({ data }) {
                     />
                   ))}
                 </Pie>
-                <Tooltip />
-              </PieChart>
+<Tooltip
+  contentStyle={{
+    padding: "4px 8px", // tighter padding
+    margin: 0,
+    border: "none",
+    backgroundColor: darkMode ? "#15202b" : "#fff",
+    boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+  }}
+  itemStyle={{
+    padding: "0px 2px", // reduces spacing between items
+        color: darkMode ? "#fff" : "#111111",
+  }}
+/>             
+ </PieChart>
             </ResponsiveContainer>
           </div>
         </div>

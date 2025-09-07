@@ -69,7 +69,19 @@ export default function DeviceTypeDistributionCard({ darkMode, data, quickStats 
                       />
                     ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip
+  contentStyle={{
+    padding: "4px 8px", // tighter padding
+    margin: 0,
+    border: "none",
+    backgroundColor: darkMode ? "#15202b" : "#fff",
+    boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+  }}
+  itemStyle={{
+    padding: "0px 2px", // reduces spacing between items
+        color: darkMode ? "#fff" : "#111111",
+  }}
+/>             
                 </PieChart>
               </ResponsiveContainer>
             </div>
