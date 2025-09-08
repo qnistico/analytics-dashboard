@@ -113,6 +113,7 @@ const defaultTodayData = {
 };
 
 
+
 // -----------------------------
 // App Component
 // -----------------------------
@@ -168,6 +169,9 @@ function App() {
       ? dashboardDataByDate[todayKey] // future dates show today's data
       : dashboardDataByDate[selectedKey] || dashboardDataByDate[todayKey];
 
+      const [sidebarOpen, setSidebarOpen] = useState(false);
+
+
   return (
     <div className="font-sans">
       <div
@@ -182,12 +186,25 @@ function App() {
   setActiveItem={setActiveItem}
   selectedDate={selectedDate}
   setSelectedDate={setSelectedDate}
+  isMobileOpen={sidebarOpen}
+  setIsMobileOpen={setSidebarOpen}
 />
+
 
 
         {/* Main content */}
         <main className="flex-1 p-6 overflow-y-auto relative">
           <div className="flex justify-between items-center mb-6">
+  {/* Left: mobile hamburger only if sidebar closed */}
+  {!sidebarOpen && (
+    <button
+      className="lg:hidden p-2 rounded-md border"
+      onClick={() => setSidebarOpen(true)}
+    >
+      ☰
+    </button>
+  )}
+
   <h1 className="text-2xl font-bold">
     {activeItem === "analytics" && "Analytics Dashboard"}
     {activeItem === "messages" && "Messages"}
@@ -210,6 +227,7 @@ function App() {
   </div>
 </div>
 
+
   <AnimatePresence mode="wait">
     {activeItem === "analytics" && (
       <motion.div
@@ -228,7 +246,7 @@ function App() {
         </div>
 
         {/* Mid Panels */}
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="mt-6 grid grid-cols-12 gap-6 cols-half-">
           <div className="col-span-8 flex flex-col gap-6">
             <NewReturningUsersCard data={selectedData.newReturningUsers} darkMode={darkMode} />
             <ActivityPanel darkMode={darkMode} />

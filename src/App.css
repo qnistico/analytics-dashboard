@@ -90,8 +90,13 @@ hr {
   justify-content: space-between;
 }
 
-.w-300 {
-  width: 325px;
+.sidebar {
+  width: 300px;
+  z-index: 99999;
+}
+
+.sidebar-label {
+  display: none;
 }
 
 /* chart cards */
@@ -274,6 +279,89 @@ hr {
 .theme-dark .product-count {
   background-color: transparent;
   color: #e5e5e5;
+}
+
+@media screen and (max-width: 1400px) {
+  .charts-grid-container {
+    grid-template-columns: repeat(2, 2fr);
+  }
+  .sidebar {
+    width: 300px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .cols-half- > div:first-child,
+  .cols-half- > div:last-child {
+    grid-column: span 6 / span 6 !important;
+  }
+
+  .sidebar {
+    width: 80px;
+    padding: 1rem 0.5rem;
+  }
+  .sidebar-title,
+  .sidebar-label,
+  .sidebar-calendar {
+    display: none !important;
+  }
+
+  .sidebar-links button {
+    justify-content: center;
+  }
+  
+}
+
+@media screen and (max-width: 1024px) {
+  .tablet-flex-col {
+    flex-flow: column;
+  }
+
+  .theme-switch {
+    margin-top: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .sidebar-label {
+    display: inline;
+  }
+}
+
+@media (max-width: 768px) {
+  .cols-half- > div:first-child,
+  .cols-half- > div:last-child {
+    grid-column: span 12 / span 12 !important;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 50;
+    width: 260px; /* expand again for overlay */
+  }
+
+  .sidebar-label {
+    display: inline !important;
+  }
+
+  .sidebar-links button {
+    justify-content: flex-start;
+  }
+
+  .tablet-flex-col {
+    align-items: flex-start;
+    margin-left: 5px;
+  }
+  
+}
+
+@media screen and (max-width: 576px) {
+  .charts-grid-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 /*
