@@ -1,6 +1,6 @@
 // src/App.jsx
 import { useState, useEffect, useMemo } from "react";
-import { Sun, Moon } from "lucide-react";
+import { Menu, X, Calendar as CalendarIcon } from "lucide-react"; // ✅ Calendar added
 import Sidebar from "./components/Sidebar";
 import RevenueCard from "./components/RevenueCard";
 import UsersCard from "./components/UsersCard";
@@ -15,11 +15,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import MessagesPanel from "./components/MessagesPanel";
 import ProductsPanel from "./components/ProductsPanel";
 
-
-
-// -----------------------------
-// Helpers
-// -----------------------------
 function generateRandomChartData(base, length = 5, variance = 0.2, key = "value") {
   const months = ["Jan", "Feb", "Mar", "Apr", "May"];
   return Array.from({ length }, (_, i) => ({
@@ -54,9 +49,6 @@ function generateRandomNewReturningUsers() {
   }));
 }
 
-// -----------------------------
-// Fixed default data for "today"
-// -----------------------------
 const defaultTodayData = {
   revenue: {
     total: 12345,
@@ -103,33 +95,29 @@ const defaultTodayData = {
     { name: "Other", value: 500 },
   ],
   newReturningUsers: [
-  { month: "Jan", newUsers: 245, returningUsers: 200 },
-  { month: "Feb", newUsers: 420, returningUsers: 230 },
-  { month: "Mar", newUsers: 360, returningUsers: 180 },
-  { month: "Apr", newUsers: 480, returningUsers: 260 },
-  { month: "May", newUsers: 390, returningUsers: 210 },
-],
-
+    { month: "Jan", newUsers: 245, returningUsers: 200 },
+    { month: "Feb", newUsers: 420, returningUsers: 230 },
+    { month: "Mar", newUsers: 360, returningUsers: 180 },
+    { month: "Apr", newUsers: 480, returningUsers: 260 },
+    { month: "May", newUsers: 390, returningUsers: 210 },
+  ],
 };
 
-
-
-// -----------------------------
-// App Component
-// -----------------------------
 function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [activeItem, setActiveItem] = useState("analytics");
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [calendarOpen, setCalendarOpen] = useState(false); // ✅ calendar modal state
+
   const todayKey = new Date().toISOString().split("T")[0];
 
-  // Generate 30-day dashboard data
   const dashboardDataByDate = useMemo(() => {
     const data = {};
     for (let d = 1; d <= 30; d++) {
       const dateKey = `2025-09-${String(d).padStart(2, "0")}`;
       if (dateKey === todayKey) {
-        data[dateKey] = defaultTodayData; // fixed values for today
+        data[dateKey] = defaultTodayData;
       } else {
         data[dateKey] = {
           revenue: {
@@ -156,21 +144,16 @@ function App() {
     return data;
   }, [todayKey]);
 
-  // Update body theme
   useEffect(() => {
     document.body.classList.toggle("theme-dark", darkMode);
     document.body.classList.toggle("theme-light", !darkMode);
   }, [darkMode]);
 
-  // Current selected data
   const selectedKey = selectedDate.toISOString().split("T")[0];
   const selectedData =
     selectedKey > todayKey
-      ? dashboardDataByDate[todayKey] // future dates show today's data
+      ? dashboardDataByDate[todayKey]
       : dashboardDataByDate[selectedKey] || dashboardDataByDate[todayKey];
-
-      const [sidebarOpen, setSidebarOpen] = useState(false);
-
 
   return (
     <div className="font-sans">
@@ -178,126 +161,143 @@ function App() {
         className="flex h-screen"
         style={{ backgroundColor: "var(--color-bg)", color: "var(--color-header)" }}
       >
-        {/* Sidebar */}
         <Sidebar
-  darkMode={darkMode}
-  setDarkMode={setDarkMode}
-  activeItem={activeItem}
-  setActiveItem={setActiveItem}
-  selectedDate={selectedDate}
-  setSelectedDate={setSelectedDate}
-  isMobileOpen={sidebarOpen}
-  setIsMobileOpen={setSidebarOpen}
-/>
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+          activeItem={activeItem}
+          setActiveItem={setActiveItem}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          isMobileOpen={sidebarOpen}
+          setIsMobileOpen={setSidebarOpen}
+        />
 
-
-
-        {/* Main content */}
         <main className="flex-1 p-6 overflow-y-auto relative">
           <div className="flex justify-between items-center mb-6">
-  {/* Left: mobile hamburger only if sidebar closed */}
-  {!sidebarOpen && (
-    <button
-      className="lg:hidden p-2 rounded-md border"
-      onClick={() => setSidebarOpen(true)}
-    >
-      ☰
-    </button>
-  )}
+            <h1 className="text-2xl font-bold">
+              {activeItem === "analytics" && "Analytics Dashboard"}
+              {activeItem === "messages" && "Messages"}
+              {activeItem === "products" && "Products"}
+            </h1>
 
-  <h1 className="text-2xl font-bold">
-    {activeItem === "analytics" && "Analytics Dashboard"}
-    {activeItem === "messages" && "Messages"}
-    {activeItem === "products" && "Products"}
-  </h1>
+            <div className="flex items-center gap-4">
+              {/* ✅ Calendar icon appears under 1200px */}
+              <button
+                className="xl:hidden p-2 rounded-md border"
+                onClick={() => setCalendarOpen(true)}
+              >
+                <CalendarIcon size={20} />
+              </button>
 
-  <div className="flex items-center gap-4">
-    <div
-      className="px-3 py-1 rounded"
-      style={{ backgroundColor: "var(--color-card-bg)", color: "var(--color-subtext)" }}
-    >
-      Search
-    </div>
-    <div
-      className="px-3 py-1 rounded"
-      style={{ backgroundColor: "var(--color-card-bg)", color: "var(--color-subtext)" }}
-    >
-      Profile
-    </div>
-  </div>
-</div>
+              <div
+                className="hidden sm:flex px-3 py-1 rounded"
+                style={{ backgroundColor: "var(--color-card-bg)", color: "var(--color-subtext)" }}
+              >
+                Search
+              </div>
+              <div
+                className="hidden sm:flex px-3 py-1 rounded"
+                style={{ backgroundColor: "var(--color-card-bg)", color: "var(--color-subtext)" }}
+              >
+                Profile
+              </div>
 
-
-  <AnimatePresence mode="wait">
-    {activeItem === "analytics" && (
-      <motion.div
-        key="analytics"
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: -50 }}
-        transition={{ duration: 0.3 }}
-      >
-        {/* Top Cards */}
-        <div className="charts-grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <RevenueCard data={selectedData.revenue} darkMode={darkMode} />
-                    <SubscriptionsCard data={selectedData.subscriptions} darkMode={darkMode} />
-          <UsersCard data={selectedData.users} darkMode={darkMode} />
-          <SessionsCard data={selectedData.sessions} darkMode={darkMode} />
-        </div>
-
-        {/* Mid Panels */}
-        <div className="mt-6 grid grid-cols-12 gap-6 cols-half-">
-          <div className="col-span-8 flex flex-col gap-6">
-            <NewReturningUsersCard data={selectedData.newReturningUsers} darkMode={darkMode} />
-            <ActivityPanel darkMode={darkMode} />
+              <button
+                className="p-2 rounded-md border hamburger-menu"
+                onClick={() => setSidebarOpen((prev) => !prev)}
+              >
+                {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            </div>
           </div>
-          <div className="col-span-4 flex flex-col gap-6">
-            <DeviceTypeDistributionCard data={selectedData.deviceTypes} darkMode={darkMode} />
-            <QuickStatsCard darkMode={darkMode} />
-          </div>
-        </div>
-      </motion.div>
-    )}
 
-    {activeItem === "messages" && (
-      <motion.div
-        key="messages"
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: -50 }}
-        transition={{ duration: 0.3 }}
-      >
-        {/* Messages panel */}
-            <MessagesPanel darkMode={darkMode} />
+          {/* ✅ Calendar modal */}
+          <AnimatePresence>
+            {calendarOpen && (
+              <motion.div
+                className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <motion.div
+                  className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg w-[90%] max-w-md"
+                  initial={{ scale: 0.9 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0.9 }}
+                >
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-lg font-semibold">Select Date</h2>
+                    <button onClick={() => setCalendarOpen(false)}>
+                      <X size={20} />
+                    </button>
+                  </div>
+                  <CalendarCard onDateChange={setSelectedDate} />
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-        <div className="grid grid-cols-1 gap-4 mt-6">
-          <div className="p-4 rounded-2xl shadow-md card-bg border-color border-standard">
-            <p className="text-sm text-muted-foreground">No new messages.</p>
-          </div>
-          
-        </div>
-      </motion.div>
-    )}
+          {/* ✅ AnimatePresence for main panels */}
+          <AnimatePresence mode="wait">
+            {activeItem === "analytics" && (
+              <motion.div
+                key="analytics"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="charts-grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <RevenueCard data={selectedData.revenue} darkMode={darkMode} />
+                  <SubscriptionsCard data={selectedData.subscriptions} darkMode={darkMode} />
+                  <UsersCard data={selectedData.users} darkMode={darkMode} />
+                  <SessionsCard data={selectedData.sessions} darkMode={darkMode} />
+                </div>
 
-    {activeItem === "products" && (
-      <motion.div
-        key="products"
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: -50 }}
-        transition={{ duration: 0.3 }}
-      >
-        {/* Messages panel */}
-            <ProductsPanel darkMode={darkMode} />
+                <div className="mt-6 grid grid-cols-12 gap-6 cols-half-">
+                  <div className="col-span-8 flex flex-col gap-6">
+                    <NewReturningUsersCard data={selectedData.newReturningUsers} darkMode={darkMode} />
+                    <ActivityPanel darkMode={darkMode} />
+                  </div>
+                  <div className="col-span-4 flex flex-col gap-6">
+                    <DeviceTypeDistributionCard data={selectedData.deviceTypes} darkMode={darkMode} />
+                    <QuickStatsCard darkMode={darkMode} />
+                  </div>
+                </div>
+              </motion.div>
+            )}
 
-        
-      </motion.div>
-    )}
+            {activeItem === "messages" && (
+              <motion.div
+                key="messages"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.3 }}
+              >
+                <MessagesPanel darkMode={darkMode} />
+                <div className="grid grid-cols-1 gap-4 mt-6">
+                  <div className="p-4 rounded-2xl shadow-md card-bg border-color border-standard">
+                    <p className="text-sm text-muted-foreground">No new messages.</p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
 
-    {/* TODO: Add more panels (Products, Settings, etc.) */}
-  </AnimatePresence>
-</main>
-
+            {activeItem === "products" && (
+              <motion.div
+                key="products"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.3 }}
+              >
+                <ProductsPanel darkMode={darkMode} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </main>
       </div>
     </div>
   );

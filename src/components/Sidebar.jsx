@@ -59,20 +59,36 @@ export default function Sidebar({
 
       {/* Nav */}
       <nav className="flex flex-col gap-3 sidebar-links flex-1">
-        {menuItems.map((item) => (
-          <button
-            key={item.key}
-            className={`flex items-center gap-2 px-3 py-2 rounded text-left w-full 
-              ${activeItem === item.key 
-                ? "bg-blue-100 text-blue-600 active" 
-                : "sidebar-links"}`}
-            onClick={() => setActiveItem(item.key)}
-          >
-            {item.icon}
-            <span className="sidebar-label">{item.label}</span>
-          </button>
-        ))}
-      </nav>
+  {menuItems.map((item) => (
+    <button
+      key={item.key}
+      className={`flex items-center gap-2 px-3 py-2 rounded text-left w-full 
+        ${activeItem === item.key 
+          ? "bg-blue-100 text-blue-600 active" 
+          : "sidebar-links"}`}
+      onClick={() => setActiveItem(item.key)}
+    >
+      {item.icon}
+      <span className="sidebar-label">{item.label}</span>
+    </button>
+  ))}
+
+  <div className="flex flex-col gap-2 mt-4 sm:hidden">
+    <div
+      className="px-3 py-2 rounded"
+      style={{ backgroundColor: "var(--color-bg)", color: "var(--color-subtext)" }}
+    >
+      Search
+    </div>
+    <div
+      className="px-3 py-2 rounded"
+      style={{ backgroundColor: "var(--color-bg)", color: "var(--color-subtext)" }}
+    >
+      Profile
+    </div>
+  </div>
+</nav>
+
 
       {/* Calendar — hides at icon-only size */}
       <div className="mt-auto sidebar-calendar">

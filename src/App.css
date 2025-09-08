@@ -286,7 +286,7 @@ hr {
     grid-template-columns: repeat(2, 2fr);
   }
   .sidebar {
-    width: 300px;
+    width: 275px;
   }
 }
 
@@ -319,6 +319,12 @@ hr {
 
   .theme-switch {
     margin-top: 20px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .hamburger-menu {
+    display: none;
   }
 }
 
@@ -361,6 +367,15 @@ hr {
 @media screen and (max-width: 576px) {
   .charts-grid-container {
     grid-template-columns: repeat(1, 1fr);
+  }
+
+  .accordion-items {
+    max-width: 90%;
+  }
+
+  .mobile-grid-jcsb {
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+justify-content: space-between;
   }
 }
 
