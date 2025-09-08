@@ -97,14 +97,22 @@ export default function RecentActivityCard() {
                     <span className="text-sm text-muted-foreground">{activity.date}</span>
                     <span className="text-sm font-semibold">{activity.amount}</span>
                     <span
-                      className={`text-xs px-2 py-0.5 rounded-full w-fitcontent ${
-                        activity.status === "Completed"
-                          ? "bg-green-100 text-green-800"
-                          : "bg-yellow-100 text-yellow-800"
-                      }`}
-                    >
-                      {activity.status}
-                    </span>
+  className={`text-xs px-2 py-0.5 rounded-full w-fit-content font-medium
+    ${
+      activity.status === "Completed"
+        ? "bg-green-500/15 text-green-600 dark:text-green-400 completed-tag" // ✅ Completed
+      : activity.status === "In Progress"
+        ? "bg-blue-500/15 text-blue-600 dark:text-blue-400 pending-tag"   // 🔵 In Progress
+      : activity.status === "Pending"
+        ? "bg-violet-500/15 text-violet-600 dark:text-violet-400 pending-tag" // ⏳ Pending (softer than yellow)
+      : activity.status === "Canceled"
+        ? "bg-red-500/15 text-red-600 dark:text-red-400" // ❌ Canceled
+      : "bg-gray-500/15 text-gray-600 dark:text-gray-400"
+    }`}
+>
+  {activity.status}
+</span>
+
                   </div>
                   <div>
                     {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}

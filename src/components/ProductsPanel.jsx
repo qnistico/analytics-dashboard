@@ -1,6 +1,8 @@
 // src/components/ProductsPanel.jsx
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./Card";
+import { Package, CheckCircle, XCircle, ShoppingCart } from "lucide-react";
+
 import {
   ResponsiveContainer,
   BarChart,
@@ -11,6 +13,8 @@ import {
   LineChart,
   Line,
   CartesianGrid,
+  Area,
+  ComposedChart
 } from "recharts";
 
 // Sample Data
@@ -53,30 +57,50 @@ export default function ProductsPanel({ darkMode }) {
       <div className="col-span-4 flex flex-col gap-6">
         {/* Top Metrics */}
         <Card className="rounded-2xl shadow-md p-4">
-          <CardHeader>
-            <CardTitle className="text-lg font-semibold">Products Overview</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-4 text-center">
-              <div>
-                <p className="text-2xl font-bold">{metricsData.totalProducts}</p>
-                <p className="text-sm text-muted-foreground">Total</p>
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{metricsData.activeProducts}</p>
-                <p className="text-sm text-muted-foreground">Active</p>
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{metricsData.inactiveProducts}</p>
-                <p className="text-sm text-muted-foreground">Inactive</p>
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{metricsData.productsSold}</p>
-                <p className="text-sm text-muted-foreground">Sold</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+  <CardHeader>
+    <CardTitle className="text-lg font-semibold">Products Overview</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <div className="grid grid-cols-2 gap-4 text-center products-card">
+      {/* Total */}
+      <div className="rounded-xl p-3 bg-gray-50 dark:bg-gray-800 main-bg brand-blue">
+        <Package className="mx-auto mb-1 h-5 w-5 text-blue-600 dark:text-blue-400" />
+        <p className="text-2xl font-bold text-blue-700 dark:text-blue-300 brand-blue mt-2">
+          {metricsData.totalProducts}
+        </p>
+        <p className="text-sm text-muted-foreground color-subtext mt-2">Total</p>
+      </div>
+
+      {/* Active */}
+      <div className="rounded-xl p-3 bg-gray-50 dark:bg-gray-800 main-bg brand-green">
+        <CheckCircle className="mx-auto mb-1 h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+        <p className="text-2xl font-bold text-emerald-700 dark:text-emerald-300 brand-green mt-2">
+          {metricsData.activeProducts}
+        </p>
+        <p className="text-sm text-muted-foreground color-subtext mt-2">Active</p>
+      </div>
+
+      {/* Inactive */}
+      <div className="rounded-xl p-3 bg-gray-50 dark:bg-gray-800 main-bg brand-violet">
+        <XCircle className="mx-auto mb-1 h-5 w-5 text-violet-600 dark:text-violet-400 brand-violet" />
+        <p className="text-2xl font-bold mt-2">
+          {metricsData.inactiveProducts}
+        </p>
+        <p className="text-sm text-muted-foreground color-subtext mt-2">Inactive</p>
+      </div>
+
+      {/* Sold */}
+      <div className="rounded-xl p-3 bg-gray-50 dark:bg-gray-800 main-bg brand-orange">
+        <ShoppingCart className="mx-auto mb-1 h-5 w-5 text-rose-600 dark:text-rose-400 brand-orange" />
+        <p className="text-2xl font-bold text-rose-700 dark:text-rose-300 brand-orange mt-2">
+          {metricsData.productsSold}
+        </p>
+        <p className="text-sm text-muted-foreground color-subtext mt-2">Sold</p>
+      </div>
+    </div>
+  </CardContent>
+</Card>
+
 
         {/* Inventory Chart */}
         <Card className="rounded-2xl shadow-md p-4">
@@ -102,7 +126,7 @@ export default function ProductsPanel({ darkMode }) {
                   />
                   <Bar
                     dataKey="stock"
-                    fill="#8B5CF6"
+                    fill="#1d9bf0"
                     radius={[6, 6, 0, 0]}
                     barSize={14}
                     activeShape={(props) => <rect {...props} fill="#6d28d9" rx={6} />}
@@ -118,39 +142,70 @@ export default function ProductsPanel({ darkMode }) {
       <div className="col-span-8 flex flex-col gap-6">
         {/* Sales Trend */}
         <Card className="rounded-2xl shadow-md p-4">
-          <CardHeader>
-            <CardTitle className="text-lg font-semibold">Top Product Sales</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-40">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={salesTrendData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? "#444" : "#ccc"} />
-                  <XAxis dataKey="product" stroke={darkMode ? "#eee" : "#333"} />
-                  <YAxis stroke={darkMode ? "#eee" : "#333"} />
-                  <Tooltip
-                    contentStyle={{
-                      padding: "4px 8px",
-                      margin: 0,
-                      border: "none",
-                      backgroundColor: darkMode ? "#15202b" : "#fff",
-                      boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
-                      color: darkMode ? "#fff" : "#111",
-                    }}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="sales"
-                    stroke="#8B5CF6"
-                    strokeWidth={3}
-                    dot={{ r: 4, fill: "#fff", stroke: "#8B5CF6", strokeWidth: 2 }}
-                    activeDot={{ r: 6, fill: "#fff", stroke: "#6d28d9", strokeWidth: 2 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
+  <CardHeader>
+    <CardTitle className="text-lg font-semibold">Top Product Sales</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <div className="h-40">
+      <ResponsiveContainer width="100%" height="100%">
+        <ComposedChart
+          data={salesTrendData}
+          margin={{ top: 10, right: 30, left: 20, bottom: 5 }}
+        >
+          <defs>
+            <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#1d9bf0" stopOpacity={0.4} />
+              <stop offset="95%" stopColor="#1d9bf0" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+
+          <CartesianGrid
+            strokeDasharray="3 3"
+            stroke={darkMode ? "#444" : "#ccc"}
+          />
+          <XAxis dataKey="product" stroke={darkMode ? "#eee" : "#333"} />
+          <YAxis stroke={darkMode ? "#eee" : "#333"} />
+
+          <Tooltip
+            contentStyle={{
+              padding: "4px 8px",
+              margin: 0,
+              border: "none",
+              backgroundColor: darkMode ? "#15202b" : "#fff",
+              boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+              color: darkMode ? "#fff" : "#111",
+            }}
+            itemStyle={{
+              padding: "0px 2px",
+            }}
+          />
+
+          {/* Gradient Area */}
+          <Area
+            type="monotone"
+            dataKey="sales"
+            stroke="none"
+            fill="url(#colorSales)"
+            name=""
+            tooltipType="none"
+          />
+
+          {/* Line on top */}
+          <Line
+            type="monotone"
+            dataKey="sales"
+            stroke="#1d9bf0"
+            strokeWidth={3}
+            dot={{ r: 4, fill: "#fff", stroke: "#1d9bf0", strokeWidth: 2 }}
+            activeDot={{ r: 6, fill: "#fff", stroke: "#6d28d9", strokeWidth: 2 }}
+            name="Sales"
+          />
+        </ComposedChart>
+      </ResponsiveContainer>
+    </div>
+  </CardContent>
+</Card>
+
 
         {/* Recent / Low Stock Products */}
         <Card className="rounded-2xl shadow-md p-4">
@@ -162,8 +217,10 @@ export default function ProductsPanel({ darkMode }) {
               {recentProducts.map((product) => (
                 <div
                   key={product.id}
-                  className={`flex justify-between p-2 rounded-md ${
-                    product.stock === 0 ? "bg-red-100 text-red-700" : "bg-gray-100 text-gray-800"
+                  className={`flex justify-between p-2 rounded-md product-count ${
+                    product.stock === 0
+                      ? "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300"
+                      : "bg-gray-100 text-gray-800 dark:bg-gray-800/50 dark:text-gray-200"
                   }`}
                 >
                   <span>{product.name}</span>

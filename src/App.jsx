@@ -188,15 +188,28 @@ function App() {
         {/* Main content */}
         <main className="flex-1 p-6 overflow-y-auto relative">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold">Analytics Dashboard</h1>
-            <div className="flex items-center gap-4">
-              
+  <h1 className="text-2xl font-bold">
+    {activeItem === "analytics" && "Analytics Dashboard"}
+    {activeItem === "messages" && "Messages"}
+    {activeItem === "products" && "Products"}
+  </h1>
 
-              {/* Search & Profile */}
-              <div className="px-3 py-1 rounded" style={{ backgroundColor: "var(--color-card-bg)", color: "var(--color-subtext)" }}>Search</div>
-              <div className="px-3 py-1 rounded" style={{ backgroundColor: "var(--color-card-bg)", color: "var(--color-subtext)" }}>Profile</div>
-            </div>
-          </div>
+  <div className="flex items-center gap-4">
+    <div
+      className="px-3 py-1 rounded"
+      style={{ backgroundColor: "var(--color-card-bg)", color: "var(--color-subtext)" }}
+    >
+      Search
+    </div>
+    <div
+      className="px-3 py-1 rounded"
+      style={{ backgroundColor: "var(--color-card-bg)", color: "var(--color-subtext)" }}
+    >
+      Profile
+    </div>
+  </div>
+</div>
+
   <AnimatePresence mode="wait">
     {activeItem === "analytics" && (
       <motion.div
@@ -237,7 +250,6 @@ function App() {
         transition={{ duration: 0.3 }}
       >
         {/* Messages panel */}
-        <h2 className="text-2xl font-bold mb-4">Messages</h2>
             <MessagesPanel darkMode={darkMode} />
 
         <div className="grid grid-cols-1 gap-4 mt-6">
@@ -258,7 +270,6 @@ function App() {
         transition={{ duration: 0.3 }}
       >
         {/* Messages panel */}
-        <h2 className="text-2xl font-bold mb-4">Messages</h2>
             <ProductsPanel darkMode={darkMode} />
 
         
