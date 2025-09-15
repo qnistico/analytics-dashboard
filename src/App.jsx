@@ -173,7 +173,7 @@ function App() {
         />
 
         <main className="flex-1 p-6 overflow-y-auto relative">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-center mb-6 header">
             <h1 className="text-2xl font-bold">
               {activeItem === "analytics" && "Analytics Dashboard"}
               {activeItem === "messages" && "Messages"}
@@ -182,13 +182,6 @@ function App() {
 
             <div className="flex items-center gap-4">
               {/* ✅ Calendar icon appears under 1200px */}
-              <button
-                className="xl:hidden p-2 rounded-md border"
-                onClick={() => setCalendarOpen(true)}
-              >
-                <CalendarIcon size={20} />
-              </button>
-
               <div
                 className="hidden sm:flex px-3 py-1 rounded"
                 style={{ backgroundColor: "var(--color-card-bg)", color: "var(--color-subtext)" }}
@@ -201,9 +194,17 @@ function App() {
               >
                 Profile
               </div>
+              <button
+                className="xl:hidden p-2 rounded-md "
+                onClick={() => setCalendarOpen(true)}
+              >
+                <CalendarIcon size={20} />
+              </button>
+
+              
 
               <button
-                className="p-2 rounded-md border hamburger-menu"
+                className="p-2 rounded-md  hamburger-menu"
                 onClick={() => setSidebarOpen((prev) => !prev)}
               >
                 {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
@@ -221,7 +222,7 @@ function App() {
                 exit={{ opacity: 0 }}
               >
                 <motion.div
-                  className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg w-[90%] max-w-md"
+                  className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg w-[90%] max-w-md card-bg"
                   initial={{ scale: 0.9 }}
                   animate={{ scale: 1 }}
                   exit={{ scale: 0.9 }}
@@ -247,8 +248,9 @@ function App() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.3 }}
+                className="analytics"
               >
-                <div className="charts-grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="charts-grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mobile-mt-75">
                   <RevenueCard data={selectedData.revenue} darkMode={darkMode} />
                   <SubscriptionsCard data={selectedData.subscriptions} darkMode={darkMode} />
                   <UsersCard data={selectedData.users} darkMode={darkMode} />

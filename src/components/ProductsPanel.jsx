@@ -52,7 +52,7 @@ export default function ProductsPanel({ darkMode }) {
   const [hoveredProduct, setHoveredProduct] = useState(null);
 
   return (
-    <div className="grid grid-cols-12 gap-6">
+    <div className="grid grid-cols-12 gap-6 products-grid">
       {/* Left Column: Top Metrics & Inventory */}
       <div className="col-span-4 flex flex-col gap-6">
         {/* Top Metrics */}
