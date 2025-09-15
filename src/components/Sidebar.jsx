@@ -116,21 +116,7 @@ export default function Sidebar({
           );
         })}
 
-        {/* Search/Profile on mobile only */}
-        <div className="flex flex-col gap-2 mt-4 sm:hidden">
-          <div
-            className="px-3 py-2 rounded"
-            style={{ backgroundColor: "var(--color-bg)", color: "var(--color-subtext)" }}
-          >
-            Search
-          </div>
-          <div
-            className="px-3 py-2 rounded"
-            style={{ backgroundColor: "var(--color-bg)", color: "var(--color-subtext)" }}
-          >
-            Profile
-          </div>
-        </div>
+        
       </nav>
 
       {/* Calendar */}
