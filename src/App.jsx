@@ -182,18 +182,7 @@ function App() {
 
             <div className="flex items-center gap-4">
               {/* ✅ Calendar icon appears under 1200px */}
-              <div
-                className="hidden sm:flex px-3 py-1 rounded"
-                style={{ backgroundColor: "var(--color-card-bg)", color: "var(--color-subtext)" }}
-              >
-                Search
-              </div>
-              <div
-                className="hidden sm:flex px-3 py-1 rounded"
-                style={{ backgroundColor: "var(--color-card-bg)", color: "var(--color-subtext)" }}
-              >
-                Profile
-              </div>
+              
               <button
                 className="xl:hidden p-2 rounded-md "
                 onClick={() => setCalendarOpen(true)}
