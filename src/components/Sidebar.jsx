@@ -48,15 +48,16 @@ export default function Sidebar({
 
   return (
     <aside
-      className={`sidebar fixed lg:relative h-full flex flex-col p-4 transition-all
-        ${isMobileOpen ? "translate-x-0" : "-translate-x-full"} 
-        lg:translate-x-0`}
-      style={{ backgroundColor: "var(--color-card-bg)" }}
-    >
+  className={`sidebar fixed xl:relative h-full flex flex-col p-4 transition-all
+    ${isMobileOpen ? "translate-x-0" : "-translate-x-full"} 
+    lg:-translate-x-0 xl:translate-x-0`}
+  style={{ backgroundColor: "var(--color-card-bg)" }}
+>
+
       {/* Header */}
-      <div className="flex jcsb items-center mb-6 tablet-flex-col">
-        <img src={logo} alt="logo" className="w-20 h-auto" />
-        <button className="lg:hidden p-2 rounded-md" onClick={() => setIsMobileOpen(false)}>
+      <div className="flex jcsb  mb-6 tablet-flex-col">
+        <img src={logo} alt="logo" className="h-auto logo" />
+        <button className="lg:hidden p-2 rounded-md flex items-start mt-6" onClick={() => setIsMobileOpen(false)}>
           ✕
         </button>
       </div>
@@ -68,7 +69,7 @@ export default function Sidebar({
             return (
               <div key="settings" className="relative" ref={settingsRef}>
                 <button
-                  className="flex items-center gap-2 px-3 py-2 rounded text-left w-full sidebar-links"
+                  className="flex  gap-2 px-3 py-2 rounded text-left w-full sidebar-links"
                   onClick={() => setSettingsOpen((prev) => !prev)}
                 >
                   {item.icon}
@@ -94,7 +95,7 @@ export default function Sidebar({
             return (
               <button
                 key="signout"
-                className="flex items-center gap-2 px-3 py-2 rounded text-left w-full opacity-60 cursor-not-allowed"
+                className="flex  gap-2 px-3 py-2 rounded text-left w-full opacity-60 cursor-not-allowed"
                 title="Disabled in demo"
               >
                 {item.icon}
@@ -106,7 +107,7 @@ export default function Sidebar({
           return (
             <button
               key={item.key}
-              className={`flex items-center gap-2 px-3 py-2 rounded text-left w-full 
+              className={`flex  gap-2 px-3 py-2 rounded text-left w-full 
                 ${activeItem === item.key ? "bg-blue-100 text-blue-600 active" : "sidebar-links"}`}
               onClick={() => handleItemClick(item.key)}
             >
@@ -119,11 +120,11 @@ export default function Sidebar({
         {/* Theme toggle as last menu item */}
         <button
           onClick={() => setDarkMode(!darkMode)}
-          className="flex items-center gap-2 px-3 py-2 rounded text-left w-full sidebar-links relative"
+          className="flex gap-2 rounded text-left w-full relative px-3 py-2 theme-toggle"
         >
-          <div className="relative w-14 h-7 flex items-center bg-gray-300 dark:bg-gray-600 rounded-full p-1 transition-colors">
+          <div className="relative w-14 h-7 flex  bg-gray-300 dark:bg-gray-600 rounded-full p-1 transition-colors items-center">
             <div
-              className={`absolute w-5 h-5 bg-white rounded-full shadow-md transform transition-transform ${
+              className={`absolute w-5 h-5 bg-white rounded-full shadow-md transform transition-transform toggle-circle ${
                 darkMode ? "translate-x-7" : "translate-x-0"
               }`}
             ></div>

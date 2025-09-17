@@ -84,6 +84,10 @@ hr {
   flex-flow: column;
 }
 
+.logo {
+  width: 65px;
+}
+
 .jcsb {
   justify-content: space-between;
 }
@@ -307,6 +311,8 @@ hr {
   color: #e5e5e5;
 }
 
+
+
 @media screen and (max-width: 1400px) {
   .charts-grid-container {
     grid-template-columns: repeat(2, 2fr);
@@ -322,15 +328,8 @@ hr {
     grid-column: span 6 / span 6 !important;
   }
 
-  .sidebar {
-    width: 80px;
-    padding: 1rem 0.5rem;
-  }
-  .sidebar-title,
-  .sidebar-label,
-  .sidebar-calendar {
-    display: none !important;
-  }
+  
+  
 
   .sidebar-links button {
     justify-content: center;
@@ -382,11 +381,33 @@ hr {
     margin-top: 75px;
   }
 
+  .sidebar-links button {
+  justify-content: flex-start !important; 
+}
+
+  
+
 }
 
 @media screen and (min-width: 1024px) {
   .hamburger-menu {
     display: none;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+  /* compact view */
+  .sidebar {
+    width: 90px; /* compact */
+  }
+  .sidebar-title,
+  .sidebar-label,
+  .sidebar-calendar {
+    display: none !important;
+  }
+
+  .theme-toggle {
+    padding: 0 !important;
   }
 }
 

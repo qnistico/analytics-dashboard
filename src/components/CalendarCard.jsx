@@ -16,7 +16,6 @@ function CalendarCard({ onDateChange }) {
       className="rounded-2xl  height-100 column-flex "
       style={{ backgroundColor: "var(--color-card-bg)", color: "var(--color-header)" }}
     >
-      <h2 className="text-lg font-semibold mb-4">Calendar</h2>
       <Calendar
         onChange={handleDateChange}
         value={selectedDate}
