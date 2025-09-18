@@ -321,6 +321,10 @@ hr {
   color: #e5e5e5;
 }
 
+.toggle-bg {
+  background-color: #4b5563;
+}
+
 
 
 @media screen and (max-width: 1400px) {

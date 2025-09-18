@@ -183,7 +183,7 @@ function App() {
   <div className="flex items-center gap-4">
     {/* ✅ Mock avatar (fake logged-in user) */}
     <div className="flex items-center gap-2 cursor-pointer">
-      <div className="avatar">
+      <div className="avatar text-white">
       JD
       </div>
       <span className="text-sm font-medium hidden sm:inline">John Doe</span>

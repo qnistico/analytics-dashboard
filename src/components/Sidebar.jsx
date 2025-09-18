@@ -122,7 +122,7 @@ export default function Sidebar({
           onClick={() => setDarkMode(!darkMode)}
           className="flex gap-2 rounded text-left w-full relative px-3 py-2 theme-toggle"
         >
-          <div className="relative w-14 h-7 flex  bg-gray-300 dark:bg-gray-600 rounded-full p-1 transition-colors items-center">
+          <div className="relative w-14 h-7 flex   rounded-full p-1 transition-colors items-center toggle-bg">
             <div
               className={`absolute w-5 h-5 bg-white rounded-full shadow-md transform transition-transform toggle-circle ${
                 darkMode ? "translate-x-7" : "translate-x-0"
