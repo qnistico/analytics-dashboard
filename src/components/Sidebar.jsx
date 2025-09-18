@@ -128,8 +128,8 @@ export default function Sidebar({
                 darkMode ? "translate-x-7" : "translate-x-0"
               }`}
             ></div>
-            <Sun className="absolute left-1 text-yellow-400" size={14} />
-            <Moon className="absolute right-1 text-gray-700 dark:text-yellow-300" size={14} />
+            <Sun className="absolute left-1 text-yellow-400 sun" size={14} />
+            <Moon className="absolute right-1 text-gray-700 dark:text-yellow-300 moon" size={14} />
           </div>
           <span className="sidebar-label">Theme</span>
         </button>
