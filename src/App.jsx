@@ -174,32 +174,39 @@ function App() {
 
         <main className="flex-1 p-6 overflow-y-auto relative">
           <div className="flex justify-between items-center mb-6 header">
-            <h1 className="text-2xl font-bold">
-              {activeItem === "analytics" && "Analytics Dashboard"}
-              {activeItem === "messages" && "Messages"}
-              {activeItem === "products" && "Products"}
-            </h1>
+  <h1 className="text-2xl font-bold">
+    {activeItem === "analytics" && "Analytics Dashboard"}
+    {activeItem === "messages" && "Messages"}
+    {activeItem === "products" && "Products"}
+  </h1>
 
-            <div className="flex items-center gap-4">
-              {/* ✅ Calendar icon appears under 1200px */}
-              
-              <button
-                className="xl:hidden p-2 rounded-md "
-                onClick={() => setCalendarOpen(true)}
-              >
-                <CalendarIcon size={20} />
-              </button>
+  <div className="flex items-center gap-4">
+    {/* ✅ Mock avatar (fake logged-in user) */}
+    <div className="flex items-center gap-2 cursor-pointer">
+      <div className="avatar">
+      JD
+      </div>
+      <span className="text-sm font-medium hidden sm:inline">John Doe</span>
+    </div>
 
-              
+    {/* ✅ Calendar icon (mobile only) */}
+    <button
+      className="xl:hidden p-2 rounded-md"
+      onClick={() => setCalendarOpen(true)}
+    >
+      <CalendarIcon size={20} />
+    </button>
 
-              <button
-                className="p-2 rounded-md  hamburger-menu"
-                onClick={() => setSidebarOpen((prev) => !prev)}
-              >
-                {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
-              </button>
-            </div>
-          </div>
+    {/* ✅ Sidebar toggle */}
+    <button
+      className="p-2 rounded-md hamburger-menu"
+      onClick={() => setSidebarOpen((prev) => !prev)}
+    >
+      {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+    </button>
+  </div>
+</div>
+
 
           {/* ✅ Calendar modal */}
           <AnimatePresence>

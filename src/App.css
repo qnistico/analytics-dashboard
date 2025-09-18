@@ -21,7 +21,16 @@
   color: var(--color-subtext);
 }
 
-
+.avatar {
+  width: 36px;
+  height: 36px;
+  background-color: var(--color-primary);
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+}
 
 hr {
   margin-bottom: 10px;
