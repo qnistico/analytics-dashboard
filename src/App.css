@@ -352,6 +352,10 @@ hr {
     flex-flow: column;
   }
 
+  .sidebar {
+    position: fixed;
+  }
+
   .theme-switch {
     margin-top: 20px;
   }
