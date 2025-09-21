@@ -104,7 +104,7 @@ const defaultTodayData = {
 };
 
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
   const [activeItem, setActiveItem] = useState("analytics");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [sidebarOpen, setSidebarOpen] = useState(false);
