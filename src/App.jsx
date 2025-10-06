@@ -151,9 +151,8 @@ function App() {
 
   const selectedKey = selectedDate.toISOString().split("T")[0];
   const selectedData =
-    selectedKey > todayKey
-      ? dashboardDataByDate[todayKey]
-      : dashboardDataByDate[selectedKey] || dashboardDataByDate[todayKey];
+  dashboardDataByDate[selectedKey] || dashboardDataByDate[todayKey] || defaultTodayData;
+
 
   return (
     <div className="font-sans">
