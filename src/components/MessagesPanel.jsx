@@ -22,7 +22,7 @@ export default function MessagesPanel({ darkMode }) {
   };
 
   return (
-    <div className="flex flex-col gap-4 messages-panel">
+    <div className="flex flex-col gap-4 messages-panel mobile-mt-75">
       {/* Compose */}
       <div className="p-4 rounded-2xl shadow-md border-color border-standard card-bg">
         <textarea
