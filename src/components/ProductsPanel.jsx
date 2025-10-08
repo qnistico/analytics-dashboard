@@ -219,8 +219,8 @@ export default function ProductsPanel({ darkMode }) {
                   key={product.id}
                   className={`flex justify-between p-2 rounded-md product-count ${
                     product.stock === 0
-                      ? "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300"
-                      : "bg-gray-100 text-gray-800 dark:bg-gray-800/50 dark:text-gray-200"
+                      ? "subtext-color"
+                      : "subtext-color"
                   }`}
                 >
                   <span>{product.name}</span>

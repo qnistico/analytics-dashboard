@@ -1,6 +1,6 @@
 // src/App.jsx
 import { useState, useEffect, useMemo } from "react";
-import { Menu, X, Calendar as CalendarIcon } from "lucide-react"; // ✅ Calendar added
+import { Menu, X, Calendar as CalendarIcon } from "lucide-react";
 import Sidebar from "./components/Sidebar";
 import RevenueCard from "./components/RevenueCard";
 import UsersCard from "./components/UsersCard";
@@ -15,6 +15,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import MessagesPanel from "./components/MessagesPanel";
 import ProductsPanel from "./components/ProductsPanel";
 
+// --- Helper functions ---
 function generateRandomChartData(base, length = 5, variance = 0.2, key = "value") {
   const months = ["Jan", "Feb", "Mar", "Apr", "May"];
   return Array.from({ length }, (_, i) => ({
@@ -49,111 +50,92 @@ function generateRandomNewReturningUsers() {
   }));
 }
 
-const defaultTodayData = {
-  revenue: {
-    total: 12345,
-    chartData: [
-      { month: "Jan", revenue: 4800 },
-      { month: "Feb", revenue: 5100 },
-      { month: "Mar", revenue: 4950 },
-      { month: "Apr", revenue: 5200 },
-      { month: "May", revenue: 5000 },
-    ],
-  },
-  users: {
-    total: 1234,
-    chartData: [
-      { month: "Jan", users: 950 },
-      { month: "Feb", users: 1000 },
-      { month: "Mar", users: 1100 },
-      { month: "Apr", users: 1200 },
-      { month: "May", users: 1234 },
-    ],
-  },
-  sessions: {
-    total: 20567,
-    chartData: [
-      { month: "Jan", sessions: 12000 },
-      { month: "Feb", sessions: 13000 },
-      { month: "Mar", sessions: 15575 },
-      { month: "Apr", sessions: 17000 },
-      { month: "May", sessions: 16275 },
-    ],
-  },
-  subscriptions: {
-    total: 1201,
-    breakdown: [
-      { name: "Trial", value: 35 },
-      { name: "Standard", value: 40 },
-      { name: "Enterprise", value: 25 },
-    ],
-  },
-  deviceTypes: [
-    { name: "Desktop", value: 3000 },
-    { name: "Mobile", value: 2500 },
-    { name: "Tablet", value: 1000 },
-    { name: "Other", value: 500 },
-  ],
-  newReturningUsers: [
-    { month: "Jan", newUsers: 245, returningUsers: 200 },
-    { month: "Feb", newUsers: 420, returningUsers: 230 },
-    { month: "Mar", newUsers: 360, returningUsers: 180 },
-    { month: "Apr", newUsers: 480, returningUsers: 260 },
-    { month: "May", newUsers: 390, returningUsers: 210 },
-  ],
-};
-
+// --- Main Component ---
 function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [activeItem, setActiveItem] = useState("analytics");
-  const [selectedDate, setSelectedDate] = useState(new Date());
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [calendarOpen, setCalendarOpen] = useState(false); // ✅ calendar modal state
+  const [calendarOpen, setCalendarOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
-  const todayKey = new Date().toISOString().split("T")[0];
+  // --- Default static dataset (unchanging) ---
+  const defaultTodayData = useMemo(() => ({
+    revenue: {
+      total: 8421,
+      chartData: generateRandomChartData(5000, 5, 0.2, "revenue"),
+    },
+    users: {
+      total: 1342,
+      chartData: generateRandomChartData(1000, 5, 0.2, "users"),
+    },
+    sessions: {
+      total: 19423,
+      chartData: generateRandomChartData(15000, 5, 0.2, "sessions"),
+    },
+    subscriptions: {
+      total: 834,
+      breakdown: generateRandomSubscriptions(),
+    },
+    deviceTypes: generateRandomDeviceTypes(),
+    newReturningUsers: generateRandomNewReturningUsers(),
+  }), []);
 
+  // --- Pre-generate 30 days of historical data ---
   const dashboardDataByDate = useMemo(() => {
     const data = {};
-    for (let d = 1; d <= 30; d++) {
-      const dateKey = `2025-09-${String(d).padStart(2, "0")}`;
-      if (dateKey === todayKey) {
-        data[dateKey] = defaultTodayData;
-      } else {
-        data[dateKey] = {
-          revenue: {
-            total: Math.floor(Math.random() * 10000) + 5000,
-            chartData: generateRandomChartData(5000, 5, 0.2, "revenue"),
-          },
-          users: {
-            total: Math.floor(Math.random() * 2000) + 500,
-            chartData: generateRandomChartData(1000, 5, 0.2, "users"),
-          },
-          sessions: {
-            total: Math.floor(Math.random() * 25000) + 5000,
-            chartData: generateRandomChartData(15000, 5, 0.2, "sessions"),
-          },
-          subscriptions: {
-            total: Math.floor(Math.random() * 2000) + 500,
-            breakdown: generateRandomSubscriptions(),
-          },
-          deviceTypes: generateRandomDeviceTypes(),
-          newReturningUsers: generateRandomNewReturningUsers(),
-        };
-      }
+    for (let i = 0; i < 30; i++) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      const key = date.toISOString().split("T")[0];
+      data[key] = {
+        revenue: {
+          total: Math.floor(Math.random() * 10000) + 5000,
+          chartData: generateRandomChartData(5000, 5, 0.2, "revenue"),
+        },
+        users: {
+          total: Math.floor(Math.random() * 2000) + 500,
+          chartData: generateRandomChartData(1000, 5, 0.2, "users"),
+        },
+        sessions: {
+          total: Math.floor(Math.random() * 25000) + 5000,
+          chartData: generateRandomChartData(15000, 5, 0.2, "sessions"),
+        },
+        subscriptions: {
+          total: Math.floor(Math.random() * 2000) + 500,
+          breakdown: generateRandomSubscriptions(),
+        },
+        deviceTypes: generateRandomDeviceTypes(),
+        newReturningUsers: generateRandomNewReturningUsers(),
+      };
     }
     return data;
-  }, [todayKey]);
+  }, []);
 
+  const [selectedData, setSelectedData] = useState(defaultTodayData);
+
+  // --- Apply dark/light theme ---
   useEffect(() => {
     document.body.classList.toggle("theme-dark", darkMode);
     document.body.classList.toggle("theme-light", !darkMode);
   }, [darkMode]);
 
-  const selectedKey = selectedDate.toISOString().split("T")[0];
-  const selectedData =
-  dashboardDataByDate[selectedKey] || dashboardDataByDate[todayKey] || defaultTodayData;
+  // --- Update data only when valid date is selected ---
+  useEffect(() => {
+    const today = new Date();
+    const selectedKey = selectedDate.toISOString().split("T")[0];
+    const isFuture = selectedDate > today;
 
+    if (isFuture) return;
 
+    const existingData = dashboardDataByDate[selectedKey];
+    if (existingData) {
+      setSelectedData(existingData);
+    } else {
+      setSelectedData(defaultTodayData);
+    }
+  }, [selectedDate, dashboardDataByDate, defaultTodayData]);
+
+  // --- JSX ---
   return (
     <div className="font-sans">
       <div
@@ -173,41 +155,35 @@ function App() {
 
         <main className="flex-1 p-6 overflow-y-auto relative">
           <div className="flex justify-between items-center mb-6 header">
-  <h1 className="text-2xl font-bold">
-    {activeItem === "analytics" && "Analytics Dashboard"}
-    {activeItem === "messages" && "Messages"}
-    {activeItem === "products" && "Products"}
-  </h1>
+            <h1 className="text-2xl font-bold">
+              {activeItem === "analytics" && "Analytics Dashboard"}
+              {activeItem === "messages" && "Messages"}
+              {activeItem === "products" && "Products"}
+            </h1>
 
-  <div className="flex items-center gap-4">
-    {/* ✅ Mock avatar (fake logged-in user) */}
-    <div className="flex items-center gap-2 cursor-pointer">
-      <div className="avatar text-white">
-      JD
-      </div>
-      <span className="text-sm font-medium hidden sm:inline">John Doe</span>
-    </div>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 cursor-pointer">
+                <div className="avatar text-white">JD</div>
+                <span className="text-sm font-medium hidden sm:inline">John Doe</span>
+              </div>
 
-    {/* ✅ Calendar icon (mobile only) */}
-    <button
-      className="xl:hidden p-2 rounded-md"
-      onClick={() => setCalendarOpen(true)}
-    >
-      <CalendarIcon size={20} />
-    </button>
+              <button
+                className="xl:hidden p-2 rounded-md"
+                onClick={() => setCalendarOpen(true)}
+              >
+                <CalendarIcon size={20} />
+              </button>
 
-    {/* ✅ Sidebar toggle */}
-    <button
-      className="p-2 rounded-md hamburger-menu"
-      onClick={() => setSidebarOpen((prev) => !prev)}
-    >
-      {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
-    </button>
-  </div>
-</div>
+              <button
+                className="p-2 rounded-md hamburger-menu"
+                onClick={() => setSidebarOpen((prev) => !prev)}
+              >
+                {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            </div>
+          </div>
 
-
-          {/* ✅ Calendar modal */}
+          {/* Calendar modal */}
           <AnimatePresence>
             {calendarOpen && (
               <motion.div
@@ -234,7 +210,7 @@ function App() {
             )}
           </AnimatePresence>
 
-          {/* ✅ AnimatePresence for main panels */}
+          {/* Panels */}
           <AnimatePresence mode="wait">
             {activeItem === "analytics" && (
               <motion.div
